@@ -166,7 +166,7 @@ export default function WelcomeScreen() {
             }}
             className="inline-block overflow-hidden whitespace-nowrap"
           >
-            PUSHKAR CHHOKAR
+            by PUSHKAR  
           </motion.span>
 
           <motion.span
