@@ -346,9 +346,11 @@ function TechGrid() {
   }
 
   useEffect(() => {
-    const els = itemEls.current;
+    let isVisible = false;
 
     function render() {
+      if (!isVisible) return;
+
       if (!isDragging.current) {
         rotY.current += velY.current;
         rotX.current += velX.current;
@@ -359,7 +361,7 @@ function TechGrid() {
       }
 
       const projected = positions.current.map((pos, i) => ({
-        el: els[i],
+        el: itemEls.current[i],
         p: project(pos, rotX.current, rotY.current),
       }));
 
@@ -375,14 +377,41 @@ function TechGrid() {
           const depth = (p.z + 1) / 2;
           const opacity = 0.25 + depth * 0.75;
           const scale = 0.55 + depth * 0.55;
-          el.style.cssText = `position:absolute;left:${x}px;top:${y}px;opacity:${opacity};transform:scale(${scale});z-index:${idx};width:72px;height:72px;`;
+          
+          el.style.transform = `translate3d(${x}px, ${y}px, 0px) scale(${scale})`;
+          el.style.opacity = `${opacity}`;
+          el.style.zIndex = `${idx}`;
         });
 
       rafId.current = requestAnimationFrame(render);
     }
 
-    rafId.current = requestAnimationFrame(render);
-    return () => { if (rafId.current) cancelAnimationFrame(rafId.current); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasVisible = isVisible;
+        isVisible = entry.isIntersecting;
+        
+        if (isVisible && !wasVisible) {
+          if (rafId.current) cancelAnimationFrame(rafId.current);
+          rafId.current = requestAnimationFrame(render);
+        } else if (!isVisible && wasVisible) {
+          if (rafId.current) {
+            cancelAnimationFrame(rafId.current);
+            rafId.current = undefined;
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      observer.disconnect();
+    };
   }, []);
 
   // Mouse events
@@ -486,7 +515,7 @@ function TechGrid() {
             <div
               key={tech.name}
               ref={(el) => { if (el) itemEls.current[i] = el; }}
-              style={{ position: "absolute", width: 72, height: 72 }}
+              style={{ position: "absolute", left: 0, top: 0, width: 72, height: 72, willChange: "transform, opacity" }}
             >
               <div
                 className="w-full h-full rounded-[18px] flex flex-col items-center justify-center gap-[5px] transition-[border-color] duration-200 hover:scale-110"

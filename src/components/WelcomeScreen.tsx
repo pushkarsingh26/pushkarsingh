@@ -189,7 +189,7 @@ export default function WelcomeScreen() {
             initial={{ width: "10%" }}
             animate={{ width: "100%" }}
             transition={{
-              duration: 6.5,
+              duration: 4.8,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="h-full bg-white"

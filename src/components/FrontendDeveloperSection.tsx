@@ -96,7 +96,7 @@ export default function FrontendDeveloperSection() {
             initial={{ opacity: 0, scale: 0.85, y: 50 }}
             animate={inView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-extrabold leading-[1.05] tracking-tight text-white text-[clamp(56px,9vw,120px)]"
+            className="font-extrabold leading-[1.05] tracking-tight text-white text-[clamp(40px,9vw,120px)]"
           >
             GenAI
           </motion.h1>
@@ -105,7 +105,7 @@ export default function FrontendDeveloperSection() {
             initial={{ opacity: 0, x: -80, rotate: -4 }}
             animate={inView ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: -80, rotate: -4 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="font-extrabold leading-[1.05] tracking-tight text-white/70 text-[clamp(56px,9vw,120px)] mb-6"
+            className="font-extrabold leading-[1.05] tracking-tight text-white/70 text-[clamp(40px,9vw,120px)] mb-6"
           >
             Developer
           </motion.h1>

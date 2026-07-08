@@ -229,7 +229,7 @@ export default function App() {
             <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 md:px-12 pt-24 pb-10">
               <h1
                 onClick={() => setColorMode((prev) => (prev + 1) % colors.length)}
-                className={`font-display uppercase leading-[0.85] tracking-[-0.03em] text-[22vw] md:text-[14vw] lg:text-[13rem] cursor-pointer transition-all duration-300 ${colors[colorMode]}`}
+                className={`font-display uppercase leading-[0.85] tracking-[-0.03em] text-[15vw] sm:text-[18vw] md:text-[14vw] lg:text-[13rem] cursor-pointer transition-all duration-300 ${colors[colorMode]}`}
               >
                 {displayed || "\u00A0"}
               </h1>
@@ -237,7 +237,7 @@ export default function App() {
               <p className="md:absolute md:top-28 md:right-12
 mt-4 md:mt-0
 text-right
-text-3xl md:text-4xl lg:text-5xl
+text-2xl sm:text-3xl md:text-4xl lg:text-5xl
 leading-[1.05]
 max-w-md
 font-[Poppins] font-bold
