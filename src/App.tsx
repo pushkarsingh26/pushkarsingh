@@ -2,6 +2,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import favicon from "/favicon.ico";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import heroEye from "@/assets/hero-eye.png";
 
@@ -75,8 +76,9 @@ export default function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={
+    <>
+      <Routes>
+        <Route path="/" element={
         <div className="min-h-screen bg-black text-white overflow-x-hidden">
           <AnimatePresence>{showWelcome && <WelcomeScreen />}</AnimatePresence>
 
@@ -325,8 +327,9 @@ animate-[shine_4s_linear_infinite]">
       } 
     />
 
-      <Route path="/about" element={<About />} />
-    </Routes>
-
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <SpeedInsights />
+    </>
   );
 }
